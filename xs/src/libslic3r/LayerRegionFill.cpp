@@ -229,8 +229,9 @@ LayerRegion::make_fill()
             f->min_spacing = flow.spacing();
         }
         
-        f->endpoints_overlap = this->region()->config.get_abs_value("infill_overlap",
-            (perimeter_spacing + scale_(f->min_spacing))/2);
+        f->endpoints_overlap = this->region()->config.infill_overlap.get_abs_value((perimeter_spacing + scale_(f->min_spacing))/2);
+        
+        std::cout <<"check if infill Overlap: "<< f->endpoints_overlap <<"\n"<< std::endl;
 
         f->layer_id = this->layer()->id();
         f->z        = this->layer()->print_z;

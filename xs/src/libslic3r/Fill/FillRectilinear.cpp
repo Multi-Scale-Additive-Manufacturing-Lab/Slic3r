@@ -347,11 +347,14 @@ FillRectilinear::_fill_single_direction(ExPolygon expolygon,
             continue;
         }
         
+        std::cout << "FillRectilinear \n" << std::endl;
         // Start our polyline.
         Polyline polyline;
         polyline.append(p);
+        std::cout << "FillRec Before1 point :[ " << polyline.points.back().x << ","<< polyline.points.back().y <<"] \n" << std::endl;
+        std::cout<< "Fill endpoints overlap: " << this->endpoints_overlap << "\n" << std::endl;
         polyline.points.back().y -= this->endpoints_overlap;
-        
+        std::cout << "FillRec after1 point :[ " << polyline.points.back().x << ","<< polyline.points.back().y <<"] \n" << std::endl;
         while (true) {
             // Complete the vertical line by finding the corresponding upper or lower point.
             if (p.type == IntersectionPoint::ipTypeUpper) {
@@ -410,8 +413,11 @@ FillRectilinear::_fill_single_direction(ExPolygon expolygon,
                 // In both cases, we should just stop the connection and break the polyline here.
                 const size_t n = polyline.points.size();
                 polyline.append(b.next);
-                for (Points::iterator pit = polyline.points.begin()+n; pit != polyline.points.end(); ++pit)
+                for (Points::iterator pit = polyline.points.begin()+n; pit != polyline.points.end(); ++pit){
+                    std::cout << "pit before : [" << pit->x <<","<<pit->y << "]\n"<<std::endl;
                     pit->y += this->endpoints_overlap * (b.type == IntersectionPoint::ipTypeUpper ? 1 : -1);
+                    std::cout << "pit after : [" << pit->x <<","<<pit->y << "]\n"<<std::endl;
+                }
             }
             
             // Is the final point still available?
