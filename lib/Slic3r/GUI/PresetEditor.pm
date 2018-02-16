@@ -1226,6 +1226,7 @@ sub options {
         dwell_lines_count
         dwell_lines_times
         park_position
+        dwell_lines_position
     );
 }
 
@@ -1458,7 +1459,29 @@ sub build {
            my $optgroup = $page->new_optgroup('Nordson');
            $optgroup->append_single_option_line('nordson_start_height');
            $optgroup->append_single_option_line('nordson_offset');
-           $optgroup->append_single_option_line('park_position');           
+           $optgroup->append_single_option_line('park_position');
+           {
+
+               my $line = Slic3r::GUI::OptionsGroup::Line->new(
+                    label => 'Dwell Layers',
+                );
+               $line->append_option($optgroup->get_option('dwell_layers_count'));
+               $line->append_option($optgroup->get_option('dwell_layers_time'));
+               $optgroup->append_line($line);
+           }
+           $optgroup->append_single_option_line('nordson_acceleration');
+           $optgroup->append_single_option_line('nordson_retraction_distance');
+           $optgroup->append_single_option_line('nordson_offset');
+           $optgroup->append_single_option_line('dwell_lines_position');
+           {
+
+               my $line = Slic3r::GUI::OptionsGroup::Line->new(
+                    label => 'Dwell Lines',
+                );
+               $line->append_option($optgroup->get_option('dwell_lines_count'));
+               $line->append_option($optgroup->get_option('dwell_lines_times'));
+               $optgroup->append_line($line);
+           }          
         }
     }
 
