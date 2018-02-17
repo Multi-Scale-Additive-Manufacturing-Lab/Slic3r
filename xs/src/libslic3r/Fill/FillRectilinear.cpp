@@ -347,14 +347,10 @@ FillRectilinear::_fill_single_direction(ExPolygon expolygon,
             continue;
         }
         
-        std::cout << "FillRectilinear \n" << std::endl;
         // Start our polyline.
         Polyline polyline;
         polyline.append(p);
-        std::cout << "FillRec Before1 point :[ " << polyline.points.back().x << ","<< polyline.points.back().y <<"] \n" << std::endl;
-        std::cout<< "Fill endpoints overlap: " << this->endpoints_overlap << "\n" << std::endl;
         polyline.points.back().y -= this->endpoints_overlap;
-        std::cout << "FillRec after1 point :[ " << polyline.points.back().x << ","<< polyline.points.back().y <<"] \n" << std::endl;
         while (true) {
             // Complete the vertical line by finding the corresponding upper or lower point.
             if (p.type == IntersectionPoint::ipTypeUpper) {
